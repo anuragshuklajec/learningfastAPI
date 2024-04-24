@@ -1,7 +1,17 @@
 from fastapi import FastAPI
 from fastapi.params import Body
+from pydantic import BaseModel
+from typing import Optional
+
 
 app = FastAPI()
+
+class Post(BaseModel):
+    title : str
+    content : str
+    published : bool = True #default value partially optional
+    rating : Optional[int] = None
+    
 
 @app.get('/')
 def root():
@@ -12,7 +22,7 @@ def root():
 def get_post():
     return {"data" : "this is your post"};
 
-@app.post('/createposts')
-def create_post(payload : dict = Body(...)):
-    print(payload)
-    return  {"new_post" : f" title : {payload['title']} content : {payload['title']}"}
+@app.post('/posts')
+def create_post(post : Post):
+    print(post)
+    return  {"data" : post}
