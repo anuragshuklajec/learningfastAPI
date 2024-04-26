@@ -14,7 +14,7 @@ class Post(PostBase): # model for response notice it inherits from PostBase clas
     created_at : datetime
     
     class Config: # So that it reads the model object and converts it to dictionary otherwise it will lead to error
-        orm_mode = True
+        from_attributes = True
 
 class UserCreate(BaseModel):
     email : EmailStr
@@ -26,4 +26,4 @@ class UserResponse(BaseModel):
     created_at : datetime
     
     class Config:
-        orm_mode = True
+        from_attributes = True #orm_mode has been renamed to from_attribute

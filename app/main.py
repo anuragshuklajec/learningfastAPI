@@ -1,12 +1,14 @@
+import logging
 from fastapi import FastAPI, Response, status,HTTPException, Depends
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
-from . import models, schemas
+from . import models, schemas, utils
 from sqlalchemy.orm import Session
 from .database import engine, get_db
 from typing import List
 
+logging.getLogger('passlib').setLevel(logging.ERROR) #supressing a warning that bycrypt raise with newer versions and has nothing to do with logic
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -84,6 +86,9 @@ def update_post(id : int, post : schemas.PostCreate,db: Session = Depends(get_db
 
 @app.post('/users',status_code = status.HTTP_201_CREATED, response_model = schemas.UserResponse)
 def create_user( user : schemas.UserCreate, db: Session = Depends(get_db)):
+    # hash the password - user.password
+    hashed_password = utils.hash(user.password)
+    user.password = hashed_password
     user = models.User(**user.model_dump())
     db.add(user)
     db.commit()
