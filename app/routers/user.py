@@ -4,7 +4,8 @@ from sqlalchemy.orm import Session
 from .. database import engine, get_db
 
 router = APIRouter(
-    prefix = "/users"
+    prefix = "/users",
+    tags = ["Users"] # helps to group every route in this router together in documentation
 )
 
 @router.post('/',status_code = status.HTTP_201_CREATED, response_model = schemas.UserResponse)

@@ -5,7 +5,9 @@ from .. database import engine, get_db
 from typing import List
 
 router = APIRouter(
-    prefix = "/posts"
+    prefix = "/posts",
+    tags = ['Posts'] # helps to group every route in this router together in documentation
+    
 )
 
 @router.get('/', response_model = List[schemas.Post])
