@@ -80,9 +80,15 @@ def update_post(id : int, post : schemas.PostCreate,db: Session = Depends(get_db
         return post_query.first()
     
     raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail =  f"post with id {id} was not found" )
-        
-    
 
+
+@app.post('/users',status_code = status.HTTP_201_CREATED, response_model = schemas.UserResponse)
+def create_user( user : schemas.UserCreate, db: Session = Depends(get_db)):
+    user = models.User(**user.model_dump())
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
     
 
 
