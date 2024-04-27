@@ -7,7 +7,7 @@ from . import models, schemas, utils
 from sqlalchemy.orm import Session
 from .database import engine, get_db
 from typing import List
-from .routers import user,post
+from .routers import user,post,auth
 
 logging.getLogger('passlib').setLevel(logging.ERROR) #supressing a warning that bycrypt raise with newer versions and has nothing to do with logic
 
@@ -28,6 +28,7 @@ while True:
 
 app.include_router(post.router)
 app.include_router(user.router)
+app.include_router(auth.router)
 
 @app.get('/')
 def root():
