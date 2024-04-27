@@ -8,7 +8,7 @@ router = APIRouter(
 )
 
 
-@router.post('/login')
+@router.post('/login', response_model = schemas.Token)
 # def login(user_credentials : schemas.UserLogin ,db:Session = Depends(database.get_db)): # This expectes something in body and we are using inbuilt password request form which takes input from form data
 def login(user_credentials : OAuth2PasswordRequestForm = Depends() ,db:Session = Depends(database.get_db)):
     
