@@ -12,7 +12,9 @@ class PostCreate(PostBase):
 
 class Post(PostBase): # model for response notice it inherits from PostBase class hence it would have every field in that class in addition to mentioned explicitely
     id : int
+    owner_id : int
     created_at : datetime
+    
     
     class Config: # So that it reads the model object and converts it to dictionary otherwise it will lead to error
         from_attributes = True
