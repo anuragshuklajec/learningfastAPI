@@ -31,10 +31,13 @@ class Post(PostBase): # model for response notice it inherits from PostBase clas
     owner_id : int
     created_at : datetime
     owner : UserResponse
-    
-    
     class Config: # So that it reads the model object and converts it to dictionary otherwise it will lead to error
         from_attributes = True
+    
+class PostResponse(BaseModel):
+    Post : Post
+    votes : int
+    
     
 class Token(BaseModel):
     access_token : str
