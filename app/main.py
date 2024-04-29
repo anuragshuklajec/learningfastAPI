@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from . import models
 from .database import engine
 from .routers import user,post,auth
+from .config import settings
 
 logging.getLogger('passlib').setLevel(logging.ERROR) #supressing a warning that bycrypt raise with newer versions and has nothing to do with logic
 
